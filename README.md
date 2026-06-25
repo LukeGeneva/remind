@@ -20,7 +20,7 @@ Reminders are added to your default **Reminders** list. Absolute clock times rol
 ## Install
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/LukeGeneva/remind/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/LukeGeneva/remind/master/install.sh | bash
 ```
 
 This downloads the latest binary from GitHub Releases and installs it to `/usr/local/bin/remind`.
