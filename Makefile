@@ -12,15 +12,18 @@ build:
 	python -m PyInstaller --onefile --name $(BINARY) remind.py
 
 sign: build
-	codesign --deep --force --sign "$(APPLE_SIGNING_IDENTITY)" $(DIST)
+	codesign --deep --force --options runtime \
+		--entitlements entitlements.plist \
+		--sign "$(APPLE_SIGNING_IDENTITY)" $(DIST)
 
 notarize: sign
-	xcrun notarytool submit $(DIST) \
+	ditto -c -k --keepParent $(DIST) $(DIST).zip
+	xcrun notarytool submit $(DIST).zip \
 		--apple-id $(APPLE_ID) \
 		--team-id $(APPLE_TEAM_ID) \
 		--password $(APP_PASS) \
 		--wait
-	xcrun stapler staple $(DIST)
+	rm $(DIST).zip
 
 install: notarize
 	cp $(DIST) /usr/local/bin/$(BINARY)
