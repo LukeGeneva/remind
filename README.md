@@ -23,23 +23,17 @@ Reminders are added to your default **Reminders** list. Absolute clock times rol
 curl -fsSL https://raw.githubusercontent.com/LukeGeneva/remind/main/install.sh | bash
 ```
 
-This downloads the latest signed binary from GitHub Releases and installs it to `/usr/local/bin/remind`.
+This downloads the latest binary from GitHub Releases and installs it to `/usr/local/bin/remind`.
 
-**Build from source** (requires Apple Developer credentials for signing/notarization):
+**Build from source:**
 
 ```sh
-make install \
-  APPLE_ID=you@example.com \
-  APPLE_TEAM_ID=XXXXXXXXXX \
-  APPLE_SIGNING_IDENTITY="Developer ID Application: Your Name (XXXXXXXXXX)"
+make install
 ```
-
-This runs `build → sign → notarize → install` in sequence. The notarization password is pulled from Keychain under the service name `notarytool`.
 
 **Publish a new release:**
 
 ```sh
-make notarize APPLE_ID=... APPLE_TEAM_ID=... APPLE_SIGNING_IDENTITY=...
 make release VERSION=1.0.0
 ```
 
