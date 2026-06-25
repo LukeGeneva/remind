@@ -2,11 +2,6 @@
 
 Create Apple Reminders from the command line.
 
-## Requirements
-
-- macOS (uses AppleScript)
-- Python 3.8+
-
 ## Usage
 
 ```
@@ -24,14 +19,13 @@ Reminders are added to your default **Reminders** list. Absolute clock times rol
 
 ## Install
 
-**Quick (script, no binary):**
-
 ```sh
-chmod +x remind.py
-sudo cp remind.py /usr/local/bin/remind
+curl -fsSL https://raw.githubusercontent.com/LukeGeneva/remind/main/install.sh | bash
 ```
 
-**Signed binary via PyInstaller** (required for Gatekeeper on other machines):
+This downloads the latest signed binary from GitHub Releases and installs it to `/usr/local/bin/remind`.
+
+**Build from source** (requires Apple Developer credentials for signing/notarization):
 
 ```sh
 make install \
@@ -42,11 +36,11 @@ make install \
 
 This runs `build → sign → notarize → install` in sequence. The notarization password is pulled from Keychain under the service name `notarytool`.
 
-To build without installing:
+**Publish a new release:**
 
 ```sh
-make build   # outputs dist/remind
-make sign    # codesigns the binary
+make notarize APPLE_ID=... APPLE_TEAM_ID=... APPLE_SIGNING_IDENTITY=...
+make release VERSION=1.0.0
 ```
 
 ## Development
