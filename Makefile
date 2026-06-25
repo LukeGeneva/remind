@@ -8,7 +8,7 @@ APP_PASS         ?= $(shell security find-generic-password -a "$(APPLE_ID)" -s "
 .PHONY: build sign notarize install clean
 
 build:
-	pyinstaller --onefile --name $(BINARY) remind.py
+	python -m PyInstaller --onefile --name $(BINARY) remind.py
 
 sign: build
 	codesign --deep --force --sign "$(APPLE_SIGNING_IDENTITY)" $(DIST)
